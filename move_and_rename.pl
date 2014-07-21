@@ -31,10 +31,6 @@ for(glob("$obj/*")){
             $_ =~ s/\.\///g;
             $_ =~s/\.$extension//g; 
             mkpath($_);
-            print $_."\n";
-            print $file."\n";
-            print $extension ."\n";
-            print $class_name ."\n";
             move "$_.$extension", "$_/$class_name" or die $!;
         }
 }
