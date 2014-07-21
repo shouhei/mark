@@ -55,13 +55,14 @@ if($judge =~ /(y|Y|Yes|yes)/){
     print SCRIPT "perl move_and_rename.pl $move_file $extension $dir \n";
     print SCRIPT "perl cfted.pl $copy_file $dir \n\n";
     for(glob($dir."/*")){
-        if($_ =~ "txt"){
+        if($_ !~ "txt"){
             $copy_file =~ s/\.class//g;
-            print SCRIPT "javac $_/$copy_file.$extenshion\n";
+            $_ =~ s/.$extension//g;
+            print SCRIPT "javac $_/$copy_file.$extension\n";
             $_ =~ s/$dir//g;
             $_ =~ s/\.$extension//g;
-            print SCRIPT "echo $_ >> $result \n";
-            print SCRIPT "java -classpath .:../../junit-4.11.jar:../../hamcrest-core-1.3.jar org.junit.runner.JUnitCore $copy_file >> $result\n";
+            print SCRIPT "echo $_ >> ../$result \n";
+            print SCRIPT "java -classpath .:../../junit-4.11.jar:../../hamcrest-core-1.3.jar org.junit.runner.JUnitCore $copy_file >> ../$result\n";
         }
     }
 }
